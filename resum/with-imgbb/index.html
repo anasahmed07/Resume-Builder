@@ -1,195 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Resume Builder</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f0f0f0;
-        }
-        .container {
-            background-color: white;
-            padding: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 500px;
-            border-radius: 8px;
-        }
-        h1 {
-            text-align: center;
-            color: #333;
-        }
-        .form-group {
-            margin-bottom: 15px;
-        }
-        label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        input, textarea {
-            width: 100%;
-            padding: 8px;
-            margin: 5px 0;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-        }
-        input[type="file"] {
-            padding: 3px;
-        }
-        button {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px;
-            border: none;
-            width: 100%;
-            cursor: pointer;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-        button:hover {
-            background-color: #45a049;
-        }
-        img {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            margin-bottom: 15px;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            border-radius: 50%;
-        }
-    </style>
-</head>
-<body>
-
-<div class="container">
-    <h1>Resume Builder</h1>
-    <form id="resumeForm">
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div id="resumeForm" class="container">
+      <h1>Resume Builder</h1>
+      <form id="resumeForm">
         <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" placeholder="Your name" required>
+          <label for="name">Name</label>
+          <input
+            type="text"
+            id="name"
+            name="name"
+            placeholder="Your name"
+            required
+          />
         </div>
         <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" placeholder="Your email" required>
+          <label for="email">Email</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            placeholder="Your email"
+            required
+          />
         </div>
         <div class="form-group">
-            <label for="phone">Phone</label>
-            <input type="text" id="phone" name="phone" placeholder="Your phone number" required>
+          <label for="phone">Phone</label>
+          <input
+            type="text"
+            id="phone"
+            name="phone"
+            placeholder="Your phone number"
+            required
+          />
         </div>
         <div class="form-group">
-            <label for="address">Address</label>
-            <input type="text" id="address" name="address" placeholder="Your address" required>
+          <label for="address">Address</label>
+          <input
+            type="text"
+            id="address"
+            name="address"
+            placeholder="Your address"
+            required
+          />
         </div>
         <div class="form-group">
-            <label for="summary">Summary</label>
-            <textarea id="summary" name="summary" placeholder="Short summary about you"></textarea>
+          <label for="summary">Summary</label>
+          <textarea
+            id="summary"
+            name="summary"
+            placeholder="Short summary about you"
+          ></textarea>
         </div>
         <div class="form-group">
-            <label for="education">Education</label>
-            <textarea id="education" name="education" placeholder="Your education details"></textarea>
+          <label for="education">Education</label>
+          <textarea
+            id="education"
+            name="education"
+            placeholder="Your education details"
+          ></textarea>
         </div>
         <div class="form-group">
-            <label for="experience">Experience</label>
-            <textarea id="experience" name="experience" placeholder="Your work experience"></textarea>
+          <label for="experience">Experience</label>
+          <textarea
+            id="experience"
+            name="experience"
+            placeholder="Your work experience"
+          ></textarea>
         </div>
         <div class="form-group">
-            <label for="skills">Skills</label>
-            <textarea id="skills" name="skills" placeholder="Your skills"></textarea>
+          <label for="skills">Skills</label>
+          <textarea
+            id="skills"
+            name="skills"
+            placeholder="Your skills"
+          ></textarea>
         </div>
         <div class="form-group">
-            <label for="imageUpload">Upload Profile Image</label>
-            <input type="file" id="imageUpload" name="imageUpload" accept="image/*" required>
+          <label for="imageUpload">Upload Profile Image</label>
+          <input
+            type="file"
+            id="imageUpload"
+            name="imageUpload"
+            accept="image/*"
+            required
+          />
         </div>
-        <img id="profileImage" src="#" alt="Profile Image" style="display: none;">
+        <img
+          id="profileImage"
+          src="#"
+          alt="Profile Image"
+          style="display: none"
+        />
         <button type="submit">Submit Resume</button>
-    </form>
-</div>
-
-<script>
-    const imageUploadInput = document.getElementById('imageUpload');
-    const profileImage = document.getElementById('profileImage');
-    const form = document.getElementById('resumeForm');
-
-    const imgBBAPIKey = 'aeddca2feda0d67f36a761852643695d';  // Replace with your ImgBB API Key
-
-    imageUploadInput.addEventListener('change', async (e) => {
-        const file = e.target.files[0];
-
-        if (file) {
-            const formData = new FormData();
-            formData.append('image', file);
-
-            // Upload image to ImgBB API
-            const response = await fetch(`https://api.imgbb.com/1/upload?key=${imgBBAPIKey}`, {
-                method: 'POST',
-                body: formData,
-            });
-
-            const data = await response.json();
-
-            if (data.success) {
-                // Image uploaded successfully
-                const imageUrl = data.data.url;
-                profileImage.src = imageUrl;
-                profileImage.style.display = 'block';
-
-                // Update URL with image URL
-                updateURLWithImage(imageUrl);
-            } else {
-                alert('Image upload failed. Please try again.');
-            }
-        }
-    });
-
-    // Function to update the URL with form data and the image URL
-    function updateURLWithImage(imageUrl) {
-        const queryParams = new URLSearchParams();
-        queryParams.set('name', document.getElementById('name').value);
-        queryParams.set('email', document.getElementById('email').value);
-        queryParams.set('phone', document.getElementById('phone').value);
-        queryParams.set('address', document.getElementById('address').value);
-        queryParams.set('summary', document.getElementById('summary').value);
-        queryParams.set('education', document.getElementById('education').value);
-        queryParams.set('experience', document.getElementById('experience').value);
-        queryParams.set('skills', document.getElementById('skills').value);
-        if (imageUrl) queryParams.set('image', imageUrl); // Add image URL to query parameters
-
-        // Update the URL with the new query parameters
-        history.replaceState(null, '', `${window.location.pathname}?${queryParams}`);
-    }
-
-    // Load data from URL
-    function loadFromURL() {
-        const queryParams = new URLSearchParams(window.location.search);
-        document.getElementById('name').value = queryParams.get('name') || '';
-        document.getElementById('email').value = queryParams.get('email') || '';
-        document.getElementById('phone').value = queryParams.get('phone') || '';
-        document.getElementById('address').value = queryParams.get('address') || '';
-        document.getElementById('summary').value = queryParams.get('summary') || '';
-        document.getElementById('education').value = queryParams.get('education') || '';
-        document.getElementById('experience').value = queryParams.get('experience') || '';
-        document.getElementById('skills').value = queryParams.get('skills') || '';
-
-        const imageUrl = queryParams.get('image');
-        if (imageUrl) {
-            profileImage.src = imageUrl;
-            profileImage.style.display = 'block';
-        }
-    }
-
-    window.addEventListener('DOMContentLoaded', loadFromURL);
-</script>
-
-</body>
+      </form>
+    </div>
+    <script src="app.js"></script>
+  </body>
 </html>
-

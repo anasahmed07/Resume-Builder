@@ -52,7 +52,6 @@
 // //   updateURLWithFormData(profileImage.src); // Use the current profile image src
 // // });
 
-
 // // Get form elements
 // const imageUploadInput = document.getElementById('imageUpload');
 // const profileImage = document.getElementById('profileImage');
@@ -117,39 +116,43 @@
 // });
 
 // Get form elements
-const imageUploadInput = document.getElementById('imageUpload');
-const profileImage = document.getElementById('profileImage');
-const form = document.getElementById('resumeForm');
+const imageUploadInput = document.getElementById("imageUpload");
+const profileImage = document.getElementById("profileImage");
+const form = document.getElementById("resumeForm");
 
 // Load data from URL if available on page load
 function loadFromURL() {
   const queryParams = new URLSearchParams(window.location.search);
 
   // Fill form fields from URL
-  document.getElementById('name').value = queryParams.get('name') || '';
-  document.getElementById('email').value = queryParams.get('email') || '';
-  document.getElementById('phone').value = queryParams.get('phone') || '';
-  document.getElementById('address').value = queryParams.get('address') || '';
-  document.getElementById('summary').value = queryParams.get('summary') || '';
-  document.getElementById('education').value = queryParams.get('education') || '';
-  document.getElementById('experience').value = queryParams.get('experience') || '';
-  document.getElementById('skills').value = queryParams.get('skills') || '';
+  document.getElementById("name").value = queryParams.get("name") || "";
+  document.getElementById("email").value = queryParams.get("email") || "";
+  document.getElementById("phone").value = queryParams.get("phone") || "";
+  document.getElementById("address").value = queryParams.get("address") || "";
+  document.getElementById("summary").value = queryParams.get("summary") || "";
+  document.getElementById("education").value =
+    queryParams.get("education") || "";
+  document.getElementById("experience").value =
+    queryParams.get("experience") || "";
+  document.getElementById("skills").value = queryParams.get("skills") || "";
 
-  const imageData = queryParams.get('image');
+  const imageData = queryParams.get("image");
   if (imageData) profileImage.src = imageData;
 }
 
 // Handle image upload and check size before converting to Base64
-imageUploadInput.addEventListener('change', () => {
+imageUploadInput.addEventListener("change", () => {
   const file = imageUploadInput.files[0];
-  
+
   if (file) {
     const fileSizeInKB = file.size / 1024; // Convert file size to KB
 
     // Check if the file size exceeds .5MB
     if (fileSizeInKB > 500) {
-      alert("The image size is too large. Please upload an image smaller than 0.5MB.");
-      imageUploadInput.value = ''; // Clear the input
+      alert(
+        "The image size is too large. Please upload an image smaller than 0.5MB."
+      );
+      imageUploadInput.value = ""; // Clear the input
       return;
     }
 
@@ -166,25 +169,25 @@ imageUploadInput.addEventListener('change', () => {
 function updateURLWithFormData(imageData) {
   const queryParams = new URLSearchParams();
 
-  queryParams.set('name', document.getElementById('name').value);
-  queryParams.set('email', document.getElementById('email').value);
-  queryParams.set('phone', document.getElementById('phone').value);
-  queryParams.set('address', document.getElementById('address').value);
-  queryParams.set('summary', document.getElementById('summary').value);
-  queryParams.set('education', document.getElementById('education').value);
-  queryParams.set('experience', document.getElementById('experience').value);
-  queryParams.set('skills', document.getElementById('skills').value);
-  if (imageData) queryParams.set('image', imageData);
+  queryParams.set("name", document.getElementById("name").value);
+  queryParams.set("email", document.getElementById("email").value);
+  queryParams.set("phone", document.getElementById("phone").value);
+  queryParams.set("address", document.getElementById("address").value);
+  queryParams.set("summary", document.getElementById("summary").value);
+  queryParams.set("education", document.getElementById("education").value);
+  queryParams.set("experience", document.getElementById("experience").value);
+  queryParams.set("skills", document.getElementById("skills").value);
+  if (imageData) queryParams.set("image", imageData);
 
   // Update the URL without reloading the page
-  history.replaceState(null, '', `${window.location.pathname}?${queryParams}`);
+  history.replaceState(null, "", `${window.location.pathname}?${queryParams}`);
 }
 
 // Load data from URL on page load
-window.addEventListener('DOMContentLoaded', loadFromURL);
+window.addEventListener("DOMContentLoaded", loadFromURL);
 
 // Update the URL when the form is submitted
-form.addEventListener('submit', (event) => {
+form.addEventListener("submit", (event) => {
   event.preventDefault(); // Prevent traditional form submission
   updateURLWithFormData(profileImage.src); // Use the current profile image src
 });
